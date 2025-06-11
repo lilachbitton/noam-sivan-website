@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>נועם סיון - יועץ עסקי | מנהיגות וטרנספורמציה עסקית</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background: #0f0f23;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* Premium Background Effects */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: float-orb 20s infinite ease-in-out;
+        }
+
+        .orb-1 { width: 200px; height: 200px; background: linear-gradient(45deg, #667eea, #764ba2); top: 10%; left: 10%; animation-delay: 0s; }
+        .orb-2 { width: 150px; height: 150px; background: linear-gradient(45deg, #f093fb, #f5576c); top: 60%; right: 20%; animation-delay: 5s; }
+        .orb-3 { width: 100px; height: 100px; background: linear-gradient(45deg, #4facfe, #00f2fe); bottom: 20%; left: 30%; animation-delay: 10s; }
+
+        @keyframes float-orb {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            33% { transform: translate(100px, -50px) scale(1.2); opacity: 0.6; }
+            66% { transform: translate(-50px, 100px) scale(0.8); opacity: 0.4; }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #0f0f23 0%, #16213e 30%, #1a237e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 70%, rgba(88, 166, 255, 0.4) 0%, transparent 50%);
+            animation: aurora 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes aurora {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 100px;
+            align-items: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-text {
+            max-width: 700px;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 50%, #e3f2fd 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255,255,255,0.5);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(255,255,255,0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(255,255,255,0.6)); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #e8eaf6;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            color: #c5cae9;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-container {
+            position: relative;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .profile-image {
+            width: 400px;
+            height: 500px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 
+                0 50px 100px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(255,255,255,0.1),
+                inset 0 0 0 1px rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 2;
+            transition: all 0.6s ease;
+        }
+
+        .profile-image:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 60px 120px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(255,255,255,0.2),
+                inset 0 0 0 1px rgba(255,255,255,0.2);
+        }
+
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            border-radius: 25px;
+            z-index: 1;
+            opacity: 0.3;
+            filter: blur(20px);
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 20px 40px rgba(102, 126, 234, 0.4),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.5s forwards;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 30px 60px rgba(102, 126, 234, 0.6),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: #ffffff;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 80px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 60px 40px;
+            background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%);
+            border-radius: 25px;
+            box-shadow: 
+                20px 20px 60px #d1d5e0,
+                -20px -20px 60px #ffffff,
+                inset 0 1px 0 rgba(255,255,255,0.8);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 25px 25px 0 0;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 
+                25px 25px 80px #d1d5e0,
+                -25px -25px 80px #ffffff,
+                inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+
+        .stat-number {
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            display: block;
+            animation: countUp 2s ease-out;
+        }
+
+        .stat-label {
+            font-size: 1.3rem;
+            color: #546e7a;
+            font-weight: 600;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 150px 0;
+            background: linear-gradient(135deg, #0f0f23 0%, #16213e 50%, #1a237e 100%);
+            color: white;
+            position: relative;
+        }
+
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%);
+        }
+
+        .services-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8eaf6 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .services-subtitle {
+            text-align: center;
+            font-size: 1.4rem;
+            color: #c5cae9;
+            margin-bottom: 100px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 50px;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-20px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 40px 80px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 40px auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 20px 40px rgba(102, 126, 234, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 
+                0 30px 60px rgba(102, 126, 234, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .service-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #ffffff;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #c5cae9;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Premium SVG Icons */
+        .icon-building { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10c0 5.55 3.84 10 9 11 1.73.33 3.61.33 5.34 0C21.16 27 25 22.55 25 17V7l-10-5z"/><path d="M8 11h8v2H8v-2zm0 4h8v2H8v-2z"/></svg>'); }
+        .icon-target { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'); }
+        .icon-gear { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97 0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1 0 .33.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/></svg>'); }
+        .icon-world { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>'); }
+        .icon-bulb { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>'); }
+        .icon-chart { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>'); }
+
+        .service-icon {
+            background-size: 40px 40px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* Continue with rest of sections... */
+        .about-section {
+            padding: 150px 0;
+            background: #ffffff;
+            position: relative;
+        }
+
+        .section-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 40px;
+        }
+
+        .section-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #546e7a;
+            margin-bottom: 50px;
+            font-weight: 400;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 150px 0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a237e 100%);
+            color: white;
+            position: relative;
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 80px auto 0;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 70px 60px;
+            border-radius: 30px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 25px 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: 'Heebo', sans-serif;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-family: 'Heebo', sans-serif;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a1a;
+            color: white;
+            padding: 100px 0 50px 0;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 30px;
+            color: #e8eaf6;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #b0bec5;
+            text-decoration: none;
+            line-height: 2;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 40px;
+            text-align: center;
+            color: #78909c;
+            font-weight: 300;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 60px;
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .profile-image {
+                width: 300px;
+                height: 400px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .service-card {
+                padding: 40px 30px;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .stat-number {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* Advanced Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Premium Background Effects -->
+    <div class="bg-elements">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">נועם סיון</h1>
+                    <p class="hero-subtitle">יועץ עסקי | עורך דין | מנהיגות וטרנספורמציה עסקית</p>
+                    <p class="hero-description">
+                        מלווה חברות בצמיחה ברת קיימא, בונה תשתיות ארגוניות חכמות ומוביל הנהלות להצלחה. 
+                        עם ניסיון עשיר בניהול ארגונים גלובליים ומאות עובדים בארץ ובחו"ל.
+                    </p>
+                    <a href="#contact" class="cta-button">בואו נתחיל לעבוד יחד</a>
+                </div>
+                <div class="profile-container">
+                    <img src="images/noam-sivan-profile.jpg" alt="נועם סיון" class="profile-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item reveal stagger-1">
+                    <span class="stat-number">25+</span>
+                    <span class="stat-label">שנות ניסיון בניהול</span>
+                </div>
+                <div class="stat-item reveal stagger-2">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">חברות מלוות בהצלחה</span>
+                </div>
+                <div class="stat-item reveal stagger-3">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">מותגים בינלאומיים</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="section-content reveal">
+                <h2 class="section-title">אודות</h2>
+                <p class="section-text">
+                    שמי נועם סיון – עורך דין, בעל תואר שני במנהל עסקים, ולשעבר מנכ"ל ובכיר ניהולי במספר מותגים בינלאומיים. 
+                    לאורך השנים עמדתי בראש ארגונים גלובליים, ניהלתי מאות עובדים בארץ ובחו"ל, והובלתי שורת תהליכים של 
+                    טרנספורמציה עסקית מקונסולידציה של מערכות תפעול ועד גיבוש אסטרטגיות חדירה לשווקים זרים.
+                </p>
+                <p class="section-text">
+                    היום אני מעמיד את הניסיון הזה לרשות מנכ"לים, יזמים ובעלי שליטה – מתוך הבנה עמוקה של האתגרים בשטח, 
+                    ולא רק של המודלים האקדמיים.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="services-title reveal">תחומי התמחות</h2>
+            <p class="services-subtitle reveal">ליווי מקצועי מותאם אישית לכל שלב בחיי החברה</p>
+            
+            <div class="services-grid">
+                <div class="service-card reveal stagger-1">
+                    <div class="service-icon icon-building"></div>
+                    <h3 class="service-title">בניית ארגון וצוותי הנהלה</h3>
+                    <p class="service-description">
+                        עיצוב מבנים ארגוניים יעילים, גיוס וחיתוך צוותי הנהלה איכותיים והנחיית תהליכי צמיחה ארגונית מקצועיים
+                    </p>
+                </div>
+                
+                <div class="service-card reveal stagger-2">
+                    <div class="service-icon icon-target"></div>
+                    <h3 class="service-title">ליווי מנכ"לים וקבלת החלטות</h3>
+                    <p class="service-description">
+                        ייעוץ אסטרטגי ברמה גבוהה, ליווי בקבלת החלטות מורכבות ופיתוח חשיבה מנהיגה המותאמת לאתגרי השוק
+                    </p>
+                </div>
+                
+                <div class="service-card reveal stagger-3">
+                    <div class="service-icon icon-gear"></div>
+                    <h3 class="service-title">תהליכים עסקיים ומודלים תפעוליים</h3>
+                    <p class="service-description">
+                        בניית תשתיות תפעוליות חכמות, אופטימיזציה של תהליכי עבודה ויצירת מודלים עסקיים יעילים ובני קיימא
+                    </p>
+                </div>
+                
+                <div class="service-card reveal stagger-4">
+                    <div class="service-icon icon-world"></div>
+                    <h3 class="service-title">התרחבות לשווקים בינלאומיים</h3>
+                    <p class="service-description">
+                        אסטרטגיות חדירה לשווקים זרים, התאמה תרבותית ורגולטורית וליווי מלא בתהליכי הקמת פעילות בינלאומית
+                    </p>
+                </div>
+
+                <div class="service-card reveal stagger-5">
+                    <div class="service-icon icon-bulb"></div>
+                    <h3 class="service-title">הבראת חברות ומשברים</h3>
+                    <p class="service-description">
+                        ניהול משברים עסקיים, תכניות הבראה מותאמות ויצירת מסלולי התאוששות יעילים לחברות בקשיים
+                    </p>
+                </div>
+
+                <div class="service-card reveal stagger-6">
+                    <div class="service-icon icon-chart"></div>
+                    <h3 class="service-title">ייעוץ למשקיעים וקרנות</h3>
+                    <p class="service-description">
+                        הערכת השקעות, ליווי דיו דיליגנס ואסטרטגיית יציאה, שיפור ביצועי פורטפוליו והערכת סיכונים עסקיים
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience Section -->
+    <section class="audience-section" style="padding: 150px 0; background: #ffffff;">
+        <div class="container">
+            <div class="section-content reveal">
+                <h2 class="section-title">למי אני מתאים?</h2>
+                <p class="section-text">ליווי מותאם אישית לכל סוג של עסק ושלב בפיתוח החברה</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; margin-top: 100px;">
+                <div class="audience-card reveal stagger-1" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #667eea; transition: all 0.4s ease;">
+                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #667eea; margin-bottom: 20px;">יזמים ובעלי עסקים בצמיחה</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                        ליווי בתהליכי התמקצעות, מעבר לחברה בע"מ, גיוס הון ושיפור רווחיות. 
+                        פתרון לאתגרי ניהול תזרים, בניית צוות מגובש ומעבר למדרגת פעילות גבוהה יותר.
+                    </p>
+                </div>
+                
+                <div class="audience-card reveal stagger-2" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #764ba2; transition: all 0.4s ease;">
+                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #764ba2; margin-bottom: 20px;">חברות ותיקות בקשיים</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                        הבראת עסקים, ייצוב פעילות, חידוש כיוונים אסטרטגיים והפיכת הפסדים לרווח. 
+                        ניסיון מוכח בניהול משברים ובהחייאת מותגים.
+                    </p>
+                </div>
+                
+                <div class="audience-card reveal stagger-3" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #667eea; transition: all 0.4s ease;">
+                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #667eea; margin-bottom: 20px;">מנהלים בכירים ודירקטוריונים</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                        ייעוץ אסטרטגי ברמה גבוהה, תכנון להתרחבות בינלאומית וליווי בקבלת החלטות מורכבות. 
+                        מנטורינג מקצועי לבכירים עם ניסיון מהשטח.
+                    </p>
+                </div>
+                
+                <div class="audience-card reveal stagger-4" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #764ba2; transition: all 0.4s ease;">
+                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #764ba2; margin-bottom: 20px;">משקיעים וקרנות השקעה</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                        שיפור ביצועי פורטפוליו, ליווי השקעות חכמות ומניעת כשלים עסקיים. 
+                        גישור בין יזמים למשקיעים עם הבנה עמיקה של שני הצדדים.
+                    </p>
+                </div>
+                
+                <div class="audience-card reveal stagger-5" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #667eea; transition: all 0.4s ease;">
+                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #667eea; margin-bottom: 20px;">מותגים בינלאומיים</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                        כניסה חלקה לשוק הישראלי עם התאמה תרבותית ושיווקית מלאה. 
+                        ניסיון מוכח בהשקת מותגי יוקרה בינלאומיים בישראל.
+                    </p>
+                </div>
+                
+                <div class="audience-card reveal stagger-6" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #764ba2; transition: all 0.4s ease;">
+                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #764ba2; margin-bottom: 20px;">עורכי דין ונאמנים</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                        ליווי עסקי מקצועי בהליכי חדלות פירעון וכינוס נכסים. 
+                        שילוב ייחודי של הבנה משפטית ועסקית להציל חברות לפני פירוק.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section style="padding: 120px 0; background: linear-gradient(135deg, #f8f9ff 0%, #e8eaf6 100%); text-align: center;">
+        <div class="container">
+            <h3 style="font-size: 2.8rem; color: #667eea; margin-bottom: 80px; font-weight: 800;">מותגים בינלאומיים שליוויתי בישראל</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; align-items: center;">
+                <div style="padding: 50px 40px; background: white; border-radius: 20px; box-shadow: 15px 15px 40px #d1d5e0, -15px -15px 40px #ffffff; transition: all 0.4s ease; border-top: 4px solid #667eea; display: flex; align-items: center; justify-content: center; min-height: 140px;" class="reveal stagger-1 brand-card">
+                    <img src="images/logos/rayban-logo.png" alt="Ray-Ban Logo" style="max-width: 180px; max-height: 80px; object-fit: contain; filter: grayscale(100%) opacity(0.8); transition: all 0.3s ease;">
+                </div>
+                <div style="padding: 50px 40px; background: white; border-radius: 20px; box-shadow: 15px 15px 40px #d1d5e0, -15px -15px 40px #ffffff; transition: all 0.4s ease; border-top: 4px solid #764ba2; display: flex; align-items: center; justify-content: center; min-height: 140px;" class="reveal stagger-2 brand-card">
+                    <img src="images/logos/prada-logo.png" alt="Prada Logo" style="max-width: 180px; max-height: 80px; object-fit: contain; filter: grayscale(100%) opacity(0.8); transition: all 0.3s ease;">
+                </div>
+                <div style="padding: 50px 40px; background: white; border-radius: 20px; box-shadow: 15px 15px 40px #d1d5e0, -15px -15px 40px #ffffff; transition: all 0.4s ease; border-top: 4px solid #667eea; display: flex; align-items: center; justify-content: center; min-height: 140px;" class="reveal stagger-3 brand-card">
+                    <img src="images/logos/nespresso-logo.png" alt="Nespresso Logo" style="max-width: 180px; max-height: 80px; object-fit: contain; filter: grayscale(100%) opacity(0.8); transition: all 0.3s ease;">
+                </div>
+                <div style="padding: 50px 40px; background: white; border-radius: 20px; box-shadow: 15px 15px 40px #d1d5e0, -15px -15px 40px #ffffff; transition: all 0.4s ease; border-top: 4px solid #764ba2; display: flex; align-items: center; justify-content: center; min-height: 140px;" class="reveal stagger-4 brand-card">
+                    <img src="images/logos/chanel-logo.png" alt="Chanel Logo" style="max-width: 180px; max-height: 80px; object-fit: contain; filter: grayscale(100%) opacity(0.8); transition: all 0.3s ease;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section style="padding: 150px 0; background: linear-gradient(135deg, #0f0f23 0%, #1a237e 100%); color: white; text-align: center; position: relative;">
+        <div class="container">
+            <div style="max-width: 1000px; margin: 0 auto; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 80px 60px; border-radius: 30px; box-shadow: 0 40px 80px rgba(0,0,0,0.3);" class="reveal">
+                <p style="font-size: 1.6rem; line-height: 1.8; margin-bottom: 40px; font-style: italic; font-weight: 400; color: #e8eaf6;">
+                    "נועם הוביל אותנו דרך תהליך טרנספורמציה מורכב שהפך את החברה שלנו ממצב של קושי כלכלי 
+                    לצמיחה רווחית. הניסיון שלו בשוק הבינלאומי וההבנה העמוקה של האתגרים העסקיים 
+                    היו קריטיים להצלחתנו."
+                </p>
+                <div style="font-size: 1.2rem; font-weight: 700; color: #c5cae9;">מנכ"ל חברת טכנולוגיה מובילה</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-content reveal">
+                <h2 class="section-title" style="color: white;">בואו נתחיל לעבוד יחד</h2>
+                <p class="services-subtitle">
+                    מוכנים לקחת את העסק שלכם לשלב הבא? הייעוץ הראשון ללא התחייבות
+                </p>
+                
+                <form class="contact-form reveal">
+                    <div class="form-group">
+                        <input type="text" placeholder="שם מלא" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="כתובת מייל" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="מספר טלפון" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="שם החברה / הארגון" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="ספרו לי על האתגר העסקי שלכם..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">שלח הודעה</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>נועם סיון</h4>
+                    <p>יועץ עסקי מומחה בטרנספורמציה ארגונית וצמיחה בינלאומית עם ניסיון של מעל 25 שנה בניהול ארגונים גלובליים</p>
+                </div>
+                <div class="footer-section">
+                    <h4>יצירת קשר</h4>
+                    <p>טלפון: 050-1234567</p>
+                    <p>מייל: noam@sivanconsulting.co.il</p>
+                    <p>LinkedIn: /in/noam-sivan</p>
+                </div>
+                <div class="footer-section">
+                    <h4>שירותים עיקריים</h4>
+                    <p>ייעוץ אסטרטגי</p>
+                    <p>בניית ארגון וצוותי הנהלה</p>
+                    <p>התרחבות בינלאומית</p>
+                    <p>הבראת חברות ומשברים</p>
+                    <p>ליווי מנכ"לים וקבלת החלטות</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 נועם סיון. כל הזכויות שמורות. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all reveal elements
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Premium Hover Effects
+        document.querySelectorAll('.audience-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) translateX(-10px)';
+                card.style.boxShadow = '25px 25px 80px #d1d5e0, -25px -25px 80px #ffffff';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) translateX(0)';
+                card.style.boxShadow = '20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff';
+            });
+        });
+
+        // Brand Logo Hover Effects
+        document.querySelectorAll('.brand-card').forEach(card => {
+            const img = card.querySelector('img');
+            
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+                card.style.boxShadow = '20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff';
+                if (img) {
+                    img.style.filter = 'grayscale(0%) opacity(1)';
+                    img.style.transform = 'scale(1.05)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '15px 15px 40px #d1d5e0, -15px -15px 40px #ffffff';
+                if (img) {
+                    img.style.filter = 'grayscale(100%) opacity(0.8)';
+                    img.style.transform = 'scale(1)';
+                }
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Advanced Form Handling
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const button = this.querySelector('.submit-btn');
+            const originalText = button.textContent;
+            
+            // Validation
+            const inputs = this.querySelectorAll('input, textarea');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.style.borderColor = '#f44336';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                }
+            });
+            
+            if (!isValid) {
+                button.textContent = 'אנא מלא את כל השדות';
+                button.style.background = '#f44336';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }, 2000);
+                return;
+            }
+            
+            // Success animation
+            button.textContent = 'שולח...';
+            button.style.background = '#ff9800';
+            
+            setTimeout(() => {
+                button.textContent = '✓ ההודעה נשלחה בהצלחה!';
+                button.style.background = '#4caf50';
+                this.reset();
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }, 3000);
+            }, 1500);
+        });
+
+        // Advanced Stats Animation
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target.querySelector('.stat-number');
+                    if (statNumber && !statNumber.classList.contains('animated')) {
+                        statNumber.classList.add('animated');
+                        animateNumber(statNumber);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-item').forEach(item => {
+            statsObserver.observe(item);
+        });
+
+        function animateNumber(element) {
+            const finalNumber = parseInt(element.textContent);
+            const duration = 2500;
+            const increment = finalNumber / (duration / 50);
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= finalNumber) {
+                    element.textContent = finalNumber + '+';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + '+';
+                }
+            }, 50);
+        }
+
+        // Dynamic background effects
+        function createFloatingIcons() {
+            const icons = ['💼', '📈', '🎯', '⚡', '🌍', '💡', '🚀', '✨'];
+            
+            setInterval(() => {
+                const icon = document.createElement('div');
+                icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+                icon.style.cssText = `
+                    position: fixed;
+                    font-size: 1.5rem;
+                    opacity: 0.1;
+                    pointer-events: none;
+                    z-index: 1;
+                    left: ${Math.random() * 100}vw;
+                    top: 100vh;
+                    animation: floatUp 8s linear forwards;
+                `;
+                document.body.appendChild(icon);
+                
+                setTimeout(() => {
+                    if (icon.parentNode) {
+                        icon.parentNode.removeChild(icon);
+                    }
+                }, 8000);
+            }, 3000);
+        }
+
+        // Add floating animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                to {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Start floating icons
+        createFloatingIcons();
+
+        // Page load animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+            document.body.style.transform = 'translateY(0)';
+        });
+
+        // Initial page style
+        document.body.style.cssText += `
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        `;
+    </script>
+</body>
+</html>
