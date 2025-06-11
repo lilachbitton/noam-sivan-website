@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ממשק ניהול - נועם סיון</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDIBBAtnJr4mxSP34ZB7NQVOvzSK-DBM6I",
+            authDomain: "noam-bdb9b.firebaseapp.com",
+            projectId: "noam-bdb9b",
+            storageBucket: "noam-bdb9b.firebasestorage.app",
+            messagingSenderId: "202657297206",
+            appId: "1:202657297206:web:a43126732bf46d3a3d3997"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Default content
+        const defaultContent = {
+            hero: {
+                name: "נועם סיון",
+                subtitle: "יועץ עסקי | עורך דין | מנהיגות וטרנספורמציה עסקית",
+                description: "מלווה חברות בצמיחה ברת קיימא, בונה תשתיות ארגוניות חכמות ומוביל הנהלות להצלחה. עם ניסיון עשיר בניהול ארגונים גלובליים ומאות עובדים בארץ ובחו״ל."
+            },
+            about: {
+                paragraph1: "שמי נועם סיון – עורך דין, בעל תואר שני במנהל עסקים, ולשעבר מנכ״ל ובכיר ניהולי במספר מותגים בינלאומיים. לאורך השנים עמדתי בראש ארגונים גלובליים, ניהלתי מאות עובדים בארץ ובחו״ל, והובלתי שורת תהליכים של טרנספורמציה עסקית מקונסולידציה של מערכות תפעול ועד גיבוש אסטרטגיות חדירה לשווקים זרים.",
+                paragraph2: "היום אני מעמיד את הניסיון הזה לרשות מנכ״לים, יזמים ובעלי שליטה – מתוך הבנה עמוקה של האתגרים בשטח, ולא רק של המודלים האקדמיים."
+            },
+            services: [
+                {
+                    title: "בניית ארגון וצוותי הנהלה",
+                    description: "עיצוב מבנים ארגוניים יעילים, גיוס וחיתוך צוותי הנהלה איכותיים והנחיית תהליכי צמיחה ארגונית מקצועיים"
+                },
+                {
+                    title: "ליווי מנכ״לים וקבלת החלטות",
+                    description: "ייעוץ אסטרטגי ברמה גבוהה, ליווי בקבלת החלטות מורכבות ופיתוח חשיבה מנהיגה המותאמת לאתגרי השוק"
+                },
+                {
+                    title: "תהליכים עסקיים ומודלים תפעוליים",
+                    description: "בניית תשתיות תפעוליות חכמות, אופטימיזציה של תהליכי עבודה ויצירת מודלים עסקיים יעילים ובני קיימא"
+                },
+                {
+                    title: "התרחבות לשווקים בינלאומיים",
+                    description: "אסטרטגיות חדירה לשווקים זרים, התאמה תרבותית ורגולטורית וליווי מלא בתהליכי הקמת פעילות בינלאומית"
+                },
+                {
+                    title: "הבראת חברות ומשברים",
+                    description: "ניהול משברים עסקיים, תכניות הבראה מותאמות ויצירת מסלולי התאוששות יעילים לחברות בקשיים"
+                },
+                {
+                    title: "ייעוץ למשקיעים וקרנות",
+                    description: "הערכת השקעות, ליווי דיו דיליגנס ואסטרטגיית יציאה, שיפור ביצועי פורטפוליו והערכת סיכונים עסקיים"
+                }
+            ],
+            audience: [
+                {
+                    title: "יזמים ובעלי עסקים בצמיחה",
+                    description: "ליווי בתהליכי התמקצעות, מעבר לחברה בע״מ, גיוס הון ושיפור רווחיות. פתרון לאתגרי ניהול תזרים, בניית צוות מגובש ומעבר למדרגת פעילות גבוהה יותר."
+                },
+                {
+                    title: "חברות ותיקות בקשיים",
+                    description: "הבראת עסקים, ייצוב פעילות, חידוש כיוונים אסטרטגיים והפיכת הפסדים לרווח. ניסיון מוכח בניהול משברים ובהחייאת מותגים."
+                },
+                {
+                    title: "מנהלים בכירים ודירקטוריונים",
+                    description: "ייעוץ אסטרטגי ברמה גבוהה, תכנון להתרחבות בינלאומית וליווי בקבלת החלטות מורכבות. מנטורינג מקצועי לבכירים עם ניסיון מהשטח."
+                },
+                {
+                    title: "משקיעים וקרנות השקעה",
+                    description: "שיפור ביצועי פורטפוליו, ליווי השקעות חכמות ומניעת כשלים עסקיים. גישור בין יזמים למשקיעים עם הבנה עמיקה של שני הצדדים."
+                },
+                {
+                    title: "מותגים בינלאומיים",
+                    description: "כניסה חלקה לשוק הישראלי עם התאמה תרבותית ושיווקית מלאה. ניסיון מוכח בהשקת מותגי יוקרה בינלאומיים בישראל."
+                },
+                {
+                    title: "עורכי דין ונאמנים",
+                    description: "ליווי עסקי מקצועי בהליכי חדלות פירעון וכינוס נכסים. שילוב ייחודי של הבנה משפטית ועסקית להציל חברות לפני פירוק."
+                }
+            ],
+            testimonial: {
+                text: "נועם הוביל אותנו דרך תהליך טרנספורמציה מורכב שהפך את החברה שלנו ממצב של קושי כלכלי לצמיחה רווחית. הניסיון שלו בשוק הבינלאומי וההבנה העמוקה של האתגרים העסקיים היו קריטיים להצלחתנו.",
+                author: "מנכ״ל חברת טכנולוגיה מובילה"
+            },
+            contact: {
+                phone: "050-1234567",
+                email: "noam@sivanconsulting.co.il",
+                linkedin: "/in/noam-sivan"
+            }
+        };
+
+        let currentContent = defaultContent;
+
+        // Authentication check
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                showAdminPanel();
+                loadContent();
+            } else {
+                showLoginForm();
+            }
+        });
+
+        // Login function
+        window.login = async function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showMessage('התחברת בהצלחה!', 'success');
+            } catch (error) {
+                showMessage('שגיאה בהתחברות: ' + error.message, 'error');
+            }
+        };
+
+        // Logout function
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                showMessage('התנתקת בהצלחה!', 'success');
+            } catch (error) {
+                showMessage('שגיאה בהתנתקות: ' + error.message, 'error');
+            }
+        };
+
+        // Load content from Firebase
+        async function loadContent() {
+            try {
+                showMessage('טוען תוכן...', 'info');
+                const docRef = doc(db, 'website', 'content');
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    currentContent = docSnap.data();
+                } else {
+                    currentContent = defaultContent;
+                }
+                
+                populateForm();
+                showMessage('תוכן נטען בהצלחה!', 'success');
+            } catch (error) {
+                showMessage('שגיאה בטעינת התוכן: ' + error.message, 'error');
+                populateForm();
+            }
+        }
+
+        // Save content to Firebase
+        window.saveContent = async function() {
+            try {
+                showMessage('שומר...', 'info');
+                
+                // Collect form data
+                const formData = {
+                    hero: {
+                        name: document.getElementById('hero-name').value,
+                        subtitle: document.getElementById('hero-subtitle').value,
+                        description: document.getElementById('hero-description').value
+                    },
+                    about: {
+                        paragraph1: document.getElementById('about-p1').value,
+                        paragraph2: document.getElementById('about-p2').value
+                    },
+                    services: [],
+                    audience: [],
+                    testimonial: {
+                        text: document.getElementById('testimonial-text').value,
+                        author: document.getElementById('testimonial-author').value
+                    },
+                    contact: {
+                        phone: document.getElementById('contact-phone').value,
+                        email: document.getElementById('contact-email').value,
+                        linkedin: document.getElementById('contact-linkedin').value
+                    }
+                };
+
+                // Collect services
+                for (let i = 0; i < 6; i++) {
+                    formData.services.push({
+                        title: document.getElementById(`service-${i}-title`).value,
+                        description: document.getElementById(`service-${i}-description`).value
+                    });
+                }
+
+                // Collect audience
+                for (let i = 0; i < 6; i++) {
+                    formData.audience.push({
+                        title: document.getElementById(`audience-${i}-title`).value,
+                        description: document.getElementById(`audience-${i}-description`).value
+                    });
+                }
+
+                // Save to Firebase
+                const docRef = doc(db, 'website', 'content');
+                await setDoc(docRef, formData);
+                
+                currentContent = formData;
+                showMessage('השינויים נשמרו בהצלחה! 🎉', 'success');
+                
+            } catch (error) {
+                showMessage('שגיאה בשמירה: ' + error.message, 'error');
+            }
+        };
+
+        // Preview website
+        window.previewWebsite = function() {
+            window.open('index.html', '_blank');
+        };
+
+        // Reset to defaults
+        window.resetToDefaults = function() {
+            if (confirm('האם אתה בטוח שברצונך לאפס את כל התוכן לברירת המחדל?')) {
+                currentContent = defaultContent;
+                populateForm();
+                showMessage('התוכן אופס לברירת המחדל', 'info');
+            }
+        };
+
+        // Populate form with current content
+        function populateForm() {
+            // Hero section
+            document.getElementById('hero-name').value = currentContent.hero.name;
+            document.getElementById('hero-subtitle').value = currentContent.hero.subtitle;
+            document.getElementById('hero-description').value = currentContent.hero.description;
+
+            // About section
+            document.getElementById('about-p1').value = currentContent.about.paragraph1;
+            document.getElementById('about-p2').value = currentContent.about.paragraph2;
+
+            // Services
+            currentContent.services.forEach((service, index) => {
+                document.getElementById(`service-${index}-title`).value = service.title;
+                document.getElementById(`service-${index}-description`).value = service.description;
+            });
+
+            // Audience
+            currentContent.audience.forEach((audience, index) => {
+                document.getElementById(`audience-${index}-title`).value = audience.title;
+                document.getElementById(`audience-${index}-description`).value = audience.description;
+            });
+
+            // Testimonial
+            document.getElementById('testimonial-text').value = currentContent.testimonial.text;
+            document.getElementById('testimonial-author').value = currentContent.testimonial.author;
+
+            // Contact
+            document.getElementById('contact-phone').value = currentContent.contact.phone;
+            document.getElementById('contact-email').value = currentContent.contact.email;
+            document.getElementById('contact-linkedin').value = currentContent.contact.linkedin;
+        }
+
+        // Show/hide panels
+        function showLoginForm() {
+            document.getElementById('login-panel').style.display = 'flex';
+            document.getElementById('admin-panel').style.display = 'none';
+        }
+
+        function showAdminPanel() {
+            document.getElementById('login-panel').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+        }
+
+        // Show messages
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Handle Enter key in login form
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    login();
+                }
+            });
+        });
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Login Panel */
+        #login-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .login-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-form h2 {
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Heebo', Arial, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Heebo', Arial, sans-serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn.btn-secondary {
+            background: #6c757d;
+            margin-right: 10px;
+        }
+
+        .btn.btn-danger {
+            background: #dc3545;
+        }
+
+        .btn.btn-success {
+            background: #28a745;
+            margin-left: 10px;
+        }
+
+        /* Admin Panel */
+        #admin-panel {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .admin-header h1 {
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .admin-content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-right: 5px solid #667eea;
+        }
+
+        .section h3 {
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .service-item,
+        .audience-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .service-item h4,
+        .audience-item h4 {
+            margin-bottom: 15px;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+
+        .actions {
+            padding: 30px;
+            background: #f8f9fa;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .actions .btn {
+            margin: 0 10px;
+        }
+
+        /* Messages */
+        .message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            z-index: 2000;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .admin-content {
+                padding: 20px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .actions .btn {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Message Display -->
+    <div id="message" class="message"></div>
+
+    <!-- Login Panel -->
+    <div id="login-panel">
+        <div class="login-form">
+            <h2>ממשק ניהול</h2>
+            <div class="form-group">
+                <label for="email">מייל:</label>
+                <input type="email" id="email" placeholder="הכנס מייל">
+            </div>
+            <div class="form-group">
+                <label for="password">סיסמה:</label>
+                <input type="password" id="password" placeholder="הכנס סיסמה">
+            </div>
+            <button class="btn" onclick="login()">התחבר</button>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel">
+        <div class="admin-header">
+            <h1>ממשק ניהול האתר</h1>
+            <p>כאן תוכל לערוך את כל התוכן באתר</p>
+            <button class="btn btn-secondary" onclick="logout()">התנתק</button>
+        </div>
+
+        <div class="admin-content">
+            <!-- Hero Section -->
+            <div class="section">
+                <h3>🏠 חלק עליון (Hero)</h3>
+                <div class="form-group">
+                    <label for="hero-name">שם:</label>
+                    <input type="text" id="hero-name">
+                </div>
+                <div class="form-group">
+                    <label for="hero-subtitle">תת-כותרת:</label>
+                    <input type="text" id="hero-subtitle">
+                </div>
+                <div class="form-group">
+                    <label for="hero-description">תיאור:</label>
+                    <textarea id="hero-description"></textarea>
+                </div>
+            </div>
+
+            <!-- About Section -->
+            <div class="section">
+                <h3>👤 אודות</h3>
+                <div class="form-group">
+                    <label for="about-p1">פסקה ראשונה:</label>
+                    <textarea id="about-p1"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="about-p2">פסקה שנייה:</label>
+                    <textarea id="about-p2"></textarea>
+                </div>
+            </div>
+
+            <!-- Services Section -->
+            <div class="section">
+                <h3>🎯 שירותים</h3>
+                <div class="service-item">
+                    <h4>שירות 1</h4>
+                    <div class="form-group">
+                        <label for="service-0-title">כותרת:</label>
+                        <input type="text" id="service-0-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="service-0-description">תיאור:</label>
+                        <textarea id="service-0-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <h4>שירות 2</h4>
+                    <div class="form-group">
+                        <label for="service-1-title">כותרת:</label>
+                        <input type="text" id="service-1-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="service-1-description">תיאור:</label>
+                        <textarea id="service-1-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <h4>שירות 3</h4>
+                    <div class="form-group">
+                        <label for="service-2-title">כותרת:</label>
+                        <input type="text" id="service-2-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="service-2-description">תיאור:</label>
+                        <textarea id="service-2-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <h4>שירות 4</h4>
+                    <div class="form-group">
+                        <label for="service-3-title">כותרת:</label>
+                        <input type="text" id="service-3-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="service-3-description">תיאור:</label>
+                        <textarea id="service-3-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <h4>שירות 5</h4>
+                    <div class="form-group">
+                        <label for="service-4-title">כותרת:</label>
+                        <input type="text" id="service-4-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="service-4-description">תיאור:</label>
+                        <textarea id="service-4-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <h4>שירות 6</h4>
+                    <div class="form-group">
+                        <label for="service-5-title">כותרת:</label>
+                        <input type="text" id="service-5-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="service-5-description">תיאור:</label>
+                        <textarea id="service-5-description"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audience Section -->
+            <div class="section">
+                <h3>👥 קהל יעד</h3>
+                <div class="audience-item">
+                    <h4>קהל יעד 1</h4>
+                    <div class="form-group">
+                        <label for="audience-0-title">כותרת:</label>
+                        <input type="text" id="audience-0-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="audience-0-description">תיאור:</label>
+                        <textarea id="audience-0-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="audience-item">
+                    <h4>קהל יעד 2</h4>
+                    <div class="form-group">
+                        <label for="audience-1-title">כותרת:</label>
+                        <input type="text" id="audience-1-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="audience-1-description">תיאור:</label>
+                        <textarea id="audience-1-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="audience-item">
+                    <h4>קהל יעד 3</h4>
+                    <div class="form-group">
+                        <label for="audience-2-title">כותרת:</label>
+                        <input type="text" id="audience-2-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="audience-2-description">תיאור:</label>
+                        <textarea id="audience-2-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="audience-item">
+                    <h4>קהל יעד 4</h4>
+                    <div class="form-group">
+                        <label for="audience-3-title">כותרת:</label>
+                        <input type="text" id="audience-3-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="audience-3-description">תיאור:</label>
+                        <textarea id="audience-3-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="audience-item">
+                    <h4>קהל יעד 5</h4>
+                    <div class="form-group">
+                        <label for="audience-4-title">כותרת:</label>
+                        <input type="text" id="audience-4-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="audience-4-description">תיאור:</label>
+                        <textarea id="audience-4-description"></textarea>
+                    </div>
+                </div>
+
+                <div class="audience-item">
+                    <h4>קהל יעד 6</h4>
+                    <div class="form-group">
+                        <label for="audience-5-title">כותרת:</label>
+                        <input type="text" id="audience-5-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="audience-5-description">תיאור:</label>
+                        <textarea id="audience-5-description"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial Section -->
+            <div class="section">
+                <h3>💬 המלצה</h3>
+                <div class="form-group">
+                    <label for="testimonial-text">טקסט ההמלצה:</label>
+                    <textarea id="testimonial-text"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="testimonial-author">שם המליץ:</label>
+                    <input type="text" id="testimonial-author">
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="section">
+                <h3>📞 יצירת קשר</h3>
+                <div class="form-group">
+                    <label for="contact-phone">טלפון:</label>
+                    <input type="text" id="contact-phone">
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">מייל:</label>
+                    <input type="email" id="contact-email">
+                </div>
+                <div class="form-group">
+                    <label for="contact-linkedin">לינקדאין:</label>
+                    <input type="text" id="contact-linkedin">
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <button class="btn btn-success" onclick="saveContent()">💾 שמור שינויים</button>
+            <button class="btn btn-secondary" onclick="previewWebsite()">👁️ תצוגה מקדימה</button>
+            <button class="btn btn-danger" onclick="resetToDefaults()">🔄 אפס לברירת מחדל</button>
+        </div>
+    </div>
+</body>
+</html>

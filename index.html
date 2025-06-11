@@ -5,6 +5,172 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>נועם סיון - יועץ עסקי | מנהיגות וטרנספורמציה עסקית</title>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDIBBAtnJr4mxSP34ZB7NQVOvzSK-DBM6I",
+            authDomain: "noam-bdb9b.firebaseapp.com",
+            projectId: "noam-bdb9b",
+            storageBucket: "noam-bdb9b.firebasestorage.app",
+            messagingSenderId: "202657297206",
+            appId: "1:202657297206:web:a43126732bf46d3a3d3997"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Default content (fallback)
+        const defaultContent = {
+            hero: {
+                name: "נועם סיון",
+                subtitle: "יועץ עסקי | עורך דין | מנהיגות וטרנספורמציה עסקית",
+                description: "מלווה חברות בצמיחה ברת קיימא, בונה תשתיות ארגוניות חכמות ומוביל הנהלות להצלחה. עם ניסיון עשיר בניהול ארגונים גלובליים ומאות עובדים בארץ ובחו״ל."
+            },
+            about: {
+                paragraph1: "שמי נועם סיון – עורך דין, בעל תואר שני במנהל עסקים, ולשעבר מנכ״ל ובכיר ניהולי במספר מותגים בינלאומיים. לאורך השנים עמדתי בראש ארגונים גלובליים, ניהלתי מאות עובדים בארץ ובחו״ל, והובלתי שורת תהליכים של טרנספורמציה עסקית מקונסולידציה של מערכות תפעול ועד גיבוש אסטרטגיות חדירה לשווקים זרים.",
+                paragraph2: "היום אני מעמיד את הניסיון הזה לרשות מנכ״לים, יזמים ובעלי שליטה – מתוך הבנה עמוקה של האתגרים בשטח, ולא רק של המודלים האקדמיים."
+            },
+            services: [
+                {
+                    title: "בניית ארגון וצוותי הנהלה",
+                    description: "עיצוב מבנים ארגוניים יעילים, גיוס וחיתוך צוותי הנהלה איכותיים והנחיית תהליכי צמיחה ארגונית מקצועיים"
+                },
+                {
+                    title: "ליווי מנכ״לים וקבלת החלטות",
+                    description: "ייעוץ אסטרטגי ברמה גבוהה, ליווי בקבלת החלטות מורכבות ופיתוח חשיבה מנהיגה המותאמת לאתגרי השוק"
+                },
+                {
+                    title: "תהליכים עסקיים ומודלים תפעוליים",
+                    description: "בניית תשתיות תפעוליות חכמות, אופטימיזציה של תהליכי עבודה ויצירת מודלים עסקיים יעילים ובני קיימא"
+                },
+                {
+                    title: "התרחבות לשווקים בינלאומיים",
+                    description: "אסטרטגיות חדירה לשווקים זרים, התאמה תרבותית ורגולטורית וליווי מלא בתהליכי הקמת פעילות בינלאומית"
+                },
+                {
+                    title: "הבראת חברות ומשברים",
+                    description: "ניהול משברים עסקיים, תכניות הבראה מותאמות ויצירת מסלולי התאוששות יעילים לחברות בקשיים"
+                },
+                {
+                    title: "ייעוץ למשקיעים וקרנות",
+                    description: "הערכת השקעות, ליווי דיו דיליגנס ואסטרטגיית יציאה, שיפור ביצועי פורטפוליו והערכת סיכונים עסקיים"
+                }
+            ],
+            audience: [
+                {
+                    title: "יזמים ובעלי עסקים בצמיחה",
+                    description: "ליווי בתהליכי התמקצעות, מעבר לחברה בע״מ, גיוס הון ושיפור רווחיות. פתרון לאתגרי ניהול תזרים, בניית צוות מגובש ומעבר למדרגת פעילות גבוהה יותר."
+                },
+                {
+                    title: "חברות ותיקות בקשיים",
+                    description: "הבראת עסקים, ייצוב פעילות, חידוש כיוונים אסטרטגיים והפיכת הפסדים לרווח. ניסיון מוכח בניהול משברים ובהחייאת מותגים."
+                },
+                {
+                    title: "מנהלים בכירים ודירקטוריונים",
+                    description: "ייעוץ אסטרטגי ברמה גבוהה, תכנון להתרחבות בינלאומית וליווי בקבלת החלטות מורכבות. מנטורינג מקצועי לבכירים עם ניסיון מהשטח."
+                },
+                {
+                    title: "משקיעים וקרנות השקעה",
+                    description: "שיפור ביצועי פורטפוליו, ליווי השקעות חכמות ומניעת כשלים עסקיים. גישור בין יזמים למשקיעים עם הבנה עמיקה של שני הצדדים."
+                },
+                {
+                    title: "מותגים בינלאומיים",
+                    description: "כניסה חלקה לשוק הישראלי עם התאמה תרבותית ושיווקית מלאה. ניסיון מוכח בהשקת מותגי יוקרה בינלאומיים בישראל."
+                },
+                {
+                    title: "עורכי דין ונאמנים",
+                    description: "ליווי עסקי מקצועי בהליכי חדלות פירעון וכינוס נכסים. שילוב ייחודי של הבנה משפטית ועסקית להציל חברות לפני פירוק."
+                }
+            ],
+            testimonial: {
+                text: "נועם הוביל אותנו דרך תהליך טרנספורמציה מורכב שהפך את החברה שלנו ממצב של קושי כלכלי לצמיחה רווחית. הניסיון שלו בשוק הבינלאומי וההבנה העמוקה של האתגרים העסקיים היו קריטיים להצלחתנו.",
+                author: "מנכ״ל חברת טכנולוגיה מובילה"
+            },
+            contact: {
+                phone: "050-1234567",
+                email: "noam@sivanconsulting.co.il",
+                linkedin: "/in/noam-sivan"
+            }
+        };
+
+        // Load content from Firebase
+        async function loadContent() {
+            try {
+                const docRef = doc(db, 'website', 'content');
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    updateContent(data);
+                } else {
+                    updateContent(defaultContent);
+                }
+            } catch (error) {
+                console.log('Using default content:', error);
+                updateContent(defaultContent);
+            }
+        }
+
+        // Update page content
+        function updateContent(content) {
+            // Hero section
+            document.querySelector('.hero-title').textContent = content.hero.name;
+            document.querySelector('.hero-subtitle').textContent = content.hero.subtitle;
+            document.querySelector('.hero-description').textContent = content.hero.description;
+
+            // About section
+            const aboutTexts = document.querySelectorAll('.section-text');
+            if (aboutTexts[0]) aboutTexts[0].textContent = content.about.paragraph1;
+            if (aboutTexts[1]) aboutTexts[1].textContent = content.about.paragraph2;
+
+            // Services
+            const serviceCards = document.querySelectorAll('.service-card');
+            content.services.forEach((service, index) => {
+                if (serviceCards[index]) {
+                    const titleElement = serviceCards[index].querySelector('.service-title');
+                    const descElement = serviceCards[index].querySelector('.service-description');
+                    if (titleElement) titleElement.textContent = service.title;
+                    if (descElement) descElement.textContent = service.description;
+                }
+            });
+
+            // Audience
+            const audienceCards = document.querySelectorAll('.audience-card');
+            content.audience.forEach((audience, index) => {
+                if (audienceCards[index]) {
+                    const titleElement = audienceCards[index].querySelector('.audience-title');
+                    const descElement = audienceCards[index].querySelector('.audience-description');
+                    if (titleElement) titleElement.textContent = audience.title;
+                    if (descElement) descElement.textContent = audience.description;
+                }
+            });
+
+            // Testimonial
+            const testimonialText = document.querySelector('.testimonial-text');
+            const testimonialAuthor = document.querySelector('.testimonial-author');
+            if (testimonialText) testimonialText.textContent = content.testimonial.text;
+            if (testimonialAuthor) testimonialAuthor.textContent = content.testimonial.author;
+
+            // Contact
+            const footerPhone = document.querySelector('.footer-phone');
+            const footerEmail = document.querySelector('.footer-email');
+            const footerLinkedin = document.querySelector('.footer-linkedin');
+            if (footerPhone) footerPhone.textContent = 'טלפון: ' + content.contact.phone;
+            if (footerEmail) footerEmail.textContent = 'מייל: ' + content.contact.email;
+            if (footerLinkedin) footerLinkedin.textContent = 'LinkedIn: ' + content.contact.linkedin;
+        }
+
+        // Load content when page loads
+        window.addEventListener('DOMContentLoaded', loadContent);
+        window.loadContent = loadContent; // Make it available globally
+    </script>
+
     <style>
         * {
             margin: 0;
@@ -14,16 +180,16 @@
 
         body {
             font-family: 'Heebo', 'Segoe UI', Arial, sans-serif;
-            line-height: 1.6;
+            line-height: 1.4;
             color: #1a1a2e;
             background: #0f0f23;
             overflow-x: hidden;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 30px;
+            padding: 0 20px;
         }
 
         /* Premium Background Effects */
@@ -40,18 +206,35 @@
         .floating-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(40px);
-            animation: float-orb 20s infinite ease-in-out;
+            filter: blur(30px);
+            animation: float-orb 15s infinite ease-in-out;
         }
 
-        .orb-1 { width: 200px; height: 200px; background: linear-gradient(45deg, #667eea, #764ba2); top: 10%; left: 10%; animation-delay: 0s; }
-        .orb-2 { width: 150px; height: 150px; background: linear-gradient(45deg, #f093fb, #f5576c); top: 60%; right: 20%; animation-delay: 5s; }
-        .orb-3 { width: 100px; height: 100px; background: linear-gradient(45deg, #4facfe, #00f2fe); bottom: 20%; left: 30%; animation-delay: 10s; }
+        .orb-1 { 
+            width: 150px; 
+            height: 150px; 
+            background: linear-gradient(45deg, #667eea, #764ba2); 
+            top: 20%; 
+            left: 10%; 
+        }
+        .orb-2 { 
+            width: 100px; 
+            height: 100px; 
+            background: linear-gradient(45deg, #f093fb, #f5576c); 
+            top: 60%; 
+            right: 15%; 
+        }
+        .orb-3 { 
+            width: 80px; 
+            height: 80px; 
+            background: linear-gradient(45deg, #4facfe, #00f2fe); 
+            bottom: 30%; 
+            left: 20%; 
+        }
 
         @keyframes float-orb {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-            33% { transform: translate(100px, -50px) scale(1.2); opacity: 0.6; }
-            66% { transform: translate(-50px, 100px) scale(0.8); opacity: 0.4; }
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+            50% { transform: translate(50px, -30px) scale(1.1); opacity: 0.4; }
         }
 
         /* Hero Section */
@@ -62,6 +245,7 @@
             align-items: center;
             color: white;
             position: relative;
+            padding: 80px 0;
             overflow: hidden;
         }
 
@@ -85,28 +269,29 @@
         }
 
         .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 100px;
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 40px;
             align-items: center;
+            text-align: center;
             z-index: 2;
             position: relative;
         }
 
         .hero-text {
-            max-width: 700px;
-            animation: slideInRight 1s ease-out;
+            max-width: 100%;
+            animation: slideInUp 1s ease-out;
         }
 
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-title {
-            font-size: 4.5rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             line-height: 1.1;
             background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 50%, #e3f2fd 100%);
             background-clip: text;
@@ -122,20 +307,24 @@
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
+            font-size: 1rem;
+            margin-bottom: 20px;
             color: #e8eaf6;
             font-weight: 400;
+            line-height: 1.4;
             opacity: 0;
             animation: fadeInUp 1s ease-out 0.5s forwards;
         }
 
         .hero-description {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin-bottom: 50px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
             color: #c5cae9;
             font-weight: 300;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
             opacity: 0;
             animation: fadeInUp 1s ease-out 1s forwards;
         }
@@ -147,17 +336,17 @@
 
         .profile-container {
             position: relative;
-            animation: slideInLeft 1s ease-out;
+            animation: slideInDown 1s ease-out;
         }
 
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .profile-image {
-            width: 400px;
-            height: 500px;
+            width: 280px;
+            height: 350px;
             border-radius: 20px;
             object-fit: cover;
             box-shadow: 
@@ -199,10 +388,10 @@
 
         .cta-button {
             display: inline-block;
-            padding: 20px 50px;
+            padding: 15px 35px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 700;
             text-decoration: none;
             border-radius: 50px;
@@ -241,28 +430,25 @@
         /* Stats Section */
         .stats-section {
             background: #ffffff;
-            padding: 120px 0;
-            position: relative;
+            padding: 60px 0;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 80px;
+            grid-template-columns: 1fr;
+            gap: 30px;
             text-align: center;
         }
 
         .stat-item {
-            padding: 60px 40px;
+            padding: 40px 30px;
             background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%);
-            border-radius: 25px;
+            border-radius: 20px;
             box-shadow: 
-                20px 20px 60px #d1d5e0,
-                -20px -20px 60px #ffffff,
-                inset 0 1px 0 rgba(255,255,255,0.8);
-            transition: all 0.4s ease;
+                10px 10px 30px #d1d5e0,
+                -10px -10px 30px #ffffff;
+            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
         }
 
         .stat-item::before {
@@ -271,41 +457,69 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-            border-radius: 25px 25px 0 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 20px 20px 0 0;
         }
 
         .stat-item:hover {
-            transform: translateY(-15px);
+            transform: translateY(-8px);
             box-shadow: 
-                25px 25px 80px #d1d5e0,
-                -25px -25px 80px #ffffff,
-                inset 0 1px 0 rgba(255,255,255,0.9);
+                15px 15px 40px #d1d5e0,
+                -15px -15px 40px #ffffff;
         }
 
         .stat-number {
-            font-size: 5rem;
-            font-weight: 900;
+            font-size: 3rem;
+            font-weight: 800;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             display: block;
-            animation: countUp 2s ease-out;
         }
 
         .stat-label {
-            font-size: 1.3rem;
+            font-size: 1rem;
             color: #546e7a;
-            font-weight: 600;
+            font-weight: 500;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 60px 0;
+            background: #ffffff;
+        }
+
+        .section-content {
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        .section-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #546e7a;
+            margin-bottom: 25px;
+            font-weight: 400;
+            text-align: justify;
         }
 
         /* Services Section */
         .services-section {
-            padding: 150px 0;
-            background: linear-gradient(135deg, #0f0f23 0%, #16213e 50%, #1a237e 100%);
+            padding: 60px 0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a237e 100%);
             color: white;
             position: relative;
         }
@@ -318,199 +532,269 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 30% 20%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%);
+                radial-gradient(circle at 30% 20%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(118, 75, 162, 0.2) 0%, transparent 50%);
         }
 
         .services-title {
             text-align: center;
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #ffffff 0%, #e8eaf6 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            line-height: 1.2;
         }
 
         .services-subtitle {
             text-align: center;
-            font-size: 1.4rem;
+            font-size: 1rem;
             color: #c5cae9;
-            margin-bottom: 100px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 40px;
+            line-height: 1.4;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 50px;
+            grid-template-columns: 1fr;
+            gap: 25px;
             position: relative;
             z-index: 2;
         }
 
         .service-card {
             background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 60px 50px;
-            border-radius: 25px;
+            padding: 30px 25px;
+            border-radius: 20px;
             text-align: center;
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
+            transition: all 0.3s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-20px);
+            transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 
-                0 40px 80px rgba(0, 0, 0, 0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         .service-icon {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 40px auto;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px auto;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 25px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 
-                0 20px 40px rgba(102, 126, 234, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
             transition: all 0.3s ease;
-            position: relative;
-            z-index: 2;
+            background-size: 30px 30px;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .service-card:hover .service-icon {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 
-                0 30px 60px rgba(102, 126, 234, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
 
         .service-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
             color: #ffffff;
-            position: relative;
-            z-index: 2;
+            line-height: 1.3;
         }
 
         .service-description {
-            font-size: 1.1rem;
-            line-height: 1.7;
+            font-size: 0.9rem;
+            line-height: 1.5;
             color: #c5cae9;
             font-weight: 400;
-            position: relative;
-            z-index: 2;
         }
 
-        /* Premium SVG Icons */
-        .icon-building { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10c0 5.55 3.84 10 9 11 1.73.33 3.61.33 5.34 0C21.16 27 25 22.55 25 17V7l-10-5z"/><path d="M8 11h8v2H8v-2zm0 4h8v2H8v-2z"/></svg>'); }
+        /* SVG Icons */
+        .icon-building { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10c0 5.55 3.84 10 9 11 1.73.33 3.61.33 5.34 0C21.16 27 25 22.55 25 17V7l-10-5z"/></svg>'); }
         .icon-target { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'); }
         .icon-gear { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97 0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1 0 .33.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/></svg>'); }
         .icon-world { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>'); }
         .icon-bulb { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>'); }
         .icon-chart { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>'); }
 
-        .service-icon {
-            background-size: 40px 40px;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        /* Continue with rest of sections... */
-        .about-section {
-            padding: 150px 0;
+        /* Target Audience Section */
+        .audience-section {
+            padding: 60px 0;
             background: #ffffff;
-            position: relative;
         }
 
-        .section-content {
-            max-width: 900px;
-            margin: 0 auto;
+        .audience-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .audience-card {
+            background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%);
+            padding: 25px 20px;
+            border-radius: 15px;
+            box-shadow: 8px 8px 20px #d1d5e0, -8px -8px 20px #ffffff;
+            border-right: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .audience-card:nth-child(even) {
+            border-right-color: #764ba2;
+        }
+
+        .audience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 12px 12px 30px #d1d5e0, -12px -12px 30px #ffffff;
+        }
+
+        .audience-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .audience-card:nth-child(even) .audience-title {
+            color: #764ba2;
+        }
+
+        .audience-description {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #546e7a;
+            font-weight: 400;
+            text-align: justify;
+        }
+
+        /* Brands Section */
+        .brands-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8eaf6 100%);
             text-align: center;
         }
 
-        .section-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .brands-title {
+            font-size: 2rem;
+            color: #667eea;
             margin-bottom: 40px;
+            font-weight: 700;
+            line-height: 1.2;
         }
 
-        .section-text {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            color: #546e7a;
-            margin-bottom: 50px;
-            font-weight: 400;
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .brand-card {
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 8px 8px 20px #d1d5e0, -8px -8px 20px #ffffff;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            border-top: 3px solid #667eea;
+        }
+
+        .brand-card:nth-child(even) {
+            border-top-color: #764ba2;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 12px 12px 25px #d1d5e0, -12px -12px 25px #ffffff;
+        }
+
+        .brand-card img {
+            max-width: 120px;
+            max-height: 50px;
+            object-fit: contain;
+            filter: grayscale(100%) opacity(0.7);
+            transition: all 0.3s ease;
+        }
+
+        .brand-card:hover img {
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.05);
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a237e 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-style: italic;
+            color: #e8eaf6;
+        }
+
+        .testimonial-author {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #c5cae9;
         }
 
         /* Contact Section */
         .contact-section {
-            padding: 150px 0;
+            padding: 60px 0;
             background: linear-gradient(135deg, #0f0f23 0%, #1a237e 100%);
             color: white;
-            position: relative;
         }
 
         .contact-form {
-            max-width: 700px;
-            margin: 80px auto 0;
+            margin-top: 30px;
             background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 70px 60px;
-            border-radius: 30px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+            padding: 30px 25px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         .form-group {
-            margin-bottom: 30px;
-            position: relative;
+            margin-bottom: 20px;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 25px 30px;
+            padding: 15px 20px;
             border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            font-size: 1.1rem;
+            border-radius: 10px;
+            font-size: 1rem;
             background: rgba(255, 255, 255, 0.05);
             color: white;
             font-family: 'Heebo', sans-serif;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .form-group input:focus,
@@ -518,134 +802,245 @@
             outline: none;
             border-color: #667eea;
             background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
         }
 
         .form-group textarea {
-            height: 150px;
+            height: 100px;
             resize: vertical;
         }
 
         .submit-btn {
             width: 100%;
-            padding: 25px;
+            padding: 15px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: 700;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             font-family: 'Heebo', sans-serif;
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .submit-btn:hover::before {
-            left: 100%;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
         .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
         }
 
         /* Footer */
         footer {
             background: #0a0a1a;
             color: white;
-            padding: 100px 0 50px 0;
-            position: relative;
+            padding: 40px 0 20px 0;
+            text-align: center;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 60px;
-            margin-bottom: 60px;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+            text-align: center;
         }
 
         .footer-section h4 {
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             color: #e8eaf6;
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
-        .footer-section p,
-        .footer-section a {
+        .footer-section p {
             color: #b0bec5;
-            text-decoration: none;
-            line-height: 2;
-            font-weight: 400;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: #667eea;
+            line-height: 1.6;
+            font-weight: 300;
+            font-size: 0.9rem;
         }
 
         .footer-bottom {
             border-top: 1px solid #333;
-            padding-top: 40px;
-            text-align: center;
+            padding-top: 20px;
             color: #78909c;
             font-weight: 300;
+            font-size: 0.8rem;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        /* Desktop Responsive */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 40px;
+            }
+
             .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 60px;
+                flex-direction: row;
+                gap: 80px;
+                text-align: right;
+            }
+
+            .hero-text {
+                flex: 1;
+                max-width: 600px;
             }
 
             .hero-title {
-                font-size: 3.5rem;
+                font-size: 4.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.3rem;
+                max-width: 100%;
             }
 
             .profile-image {
-                width: 300px;
-                height: 400px;
+                width: 400px;
+                height: 500px;
             }
 
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .service-card {
-                padding: 40px 30px;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 50px;
             }
 
             .stat-number {
-                font-size: 3.5rem;
+                font-size: 4rem;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+
+            .section-text {
+                font-size: 1.2rem;
+                text-align: center;
+            }
+
+            .services-title {
+                font-size: 3rem;
+            }
+
+            .services-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+
+            .service-card {
+                padding: 50px 40px;
+            }
+
+            .service-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 30px;
+                background-size: 35px 35px;
+            }
+
+            .service-title {
+                font-size: 1.4rem;
+            }
+
+            .service-description {
+                font-size: 1rem;
+            }
+
+            .audience-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .audience-card {
+                padding: 40px 35px;
+            }
+
+            .audience-title {
+                font-size: 1.3rem;
+            }
+
+            .audience-description {
+                font-size: 1rem;
+                text-align: right;
+            }
+
+            .brands-title {
+                font-size: 2.5rem;
+            }
+
+            .brands-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 40px;
+            }
+
+            .brand-card {
+                padding: 40px 30px;
+                min-height: 120px;
+            }
+
+            .brand-card img {
+                max-width: 150px;
+                max-height: 60px;
+            }
+
+            .testimonial-card {
+                padding: 60px 50px;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            .testimonial-text {
+                font-size: 1.3rem;
+            }
+
+            .testimonial-author {
+                font-size: 1rem;
+            }
+
+            .contact-form {
+                max-width: 600px;
+                margin: 50px auto 0;
+                padding: 50px 40px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+                text-align: right;
+            }
+
+            .hero-section,
+            .stats-section,
+            .about-section,
+            .services-section,
+            .audience-section,
+            .brands-section,
+            .testimonial-section,
+            .contact-section {
+                padding: 100px 0;
             }
         }
 
-        /* Advanced Animations */
+        @media (min-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .audience-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Animations */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
         }
 
         .reveal.visible {
@@ -660,47 +1055,27 @@
         .stagger-5 { transition-delay: 0.5s; }
         .stagger-6 { transition-delay: 0.6s; }
 
-        /* Mobile Typography Fix */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.8rem !important;
-                line-height: 1.2 !important;
-                margin-bottom: 20px !important;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.1rem !important;
-                line-height: 1.5 !important;
-                margin-bottom: 20px !important;
-            }
-            
-            .hero-description {
-                font-size: 1rem !important;
-                line-height: 1.6 !important;
-                margin-bottom: 30px !important;
-            }
-            
-            .section-title {
-                font-size: 2.2rem !important;
-                line-height: 1.3 !important;
-                margin-bottom: 20px !important;
-            }
-            
-            .section-text,
-            .about-text {
-                font-size: 1rem !important;
-                line-height: 1.6 !important;
-                margin-bottom: 30px !important;
-                text-align: justify !important;
-            }
-            
-            .container {
-                padding: 0 15px !important;
-            }
+        /* Loading indicator */
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 10000;
+            display: none;
         }
     </style>
 </head>
 <body>
+    <!-- Loading indicator -->
+    <div id="loading" class="loading">
+        טוען תוכן...
+    </div>
+
     <!-- Premium Background Effects -->
     <div class="bg-elements">
         <div class="floating-orb orb-1"></div>
@@ -825,57 +1200,57 @@
     </section>
 
     <!-- Target Audience Section -->
-    <section class="audience-section" style="padding: 150px 0; background: #ffffff;">
+    <section class="audience-section">
         <div class="container">
             <div class="section-content reveal">
                 <h2 class="section-title">למי אני מתאים?</h2>
                 <p class="section-text">ליווי מותאם אישית לכל סוג של עסק ושלב בפיתוח החברה</p>
             </div>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; margin-top: 100px;">
-                <div class="audience-card reveal stagger-1" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #667eea; transition: all 0.4s ease;">
-                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #667eea; margin-bottom: 20px;">יזמים ובעלי עסקים בצמיחה</h4>
-                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+            <div class="audience-grid">
+                <div class="audience-card reveal stagger-1">
+                    <h4 class="audience-title">יזמים ובעלי עסקים בצמיחה</h4>
+                    <p class="audience-description">
                         ליווי בתהליכי התמקצעות, מעבר לחברה בע"מ, גיוס הון ושיפור רווחיות. 
                         פתרון לאתגרי ניהול תזרים, בניית צוות מגובש ומעבר למדרגת פעילות גבוהה יותר.
                     </p>
                 </div>
                 
-                <div class="audience-card reveal stagger-2" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #764ba2; transition: all 0.4s ease;">
-                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #764ba2; margin-bottom: 20px;">חברות ותיקות בקשיים</h4>
-                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                <div class="audience-card reveal stagger-2">
+                    <h4 class="audience-title">חברות ותיקות בקשיים</h4>
+                    <p class="audience-description">
                         הבראת עסקים, ייצוב פעילות, חידוש כיוונים אסטרטגיים והפיכת הפסדים לרווח. 
                         ניסיון מוכח בניהול משברים ובהחייאת מותגים.
                     </p>
                 </div>
                 
-                <div class="audience-card reveal stagger-3" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #667eea; transition: all 0.4s ease;">
-                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #667eea; margin-bottom: 20px;">מנהלים בכירים ודירקטוריונים</h4>
-                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                <div class="audience-card reveal stagger-3">
+                    <h4 class="audience-title">מנהלים בכירים ודירקטוריונים</h4>
+                    <p class="audience-description">
                         ייעוץ אסטרטגי ברמה גבוהה, תכנון להתרחבות בינלאומית וליווי בקבלת החלטות מורכבות. 
                         מנטורינג מקצועי לבכירים עם ניסיון מהשטח.
                     </p>
                 </div>
                 
-                <div class="audience-card reveal stagger-4" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #764ba2; transition: all 0.4s ease;">
-                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #764ba2; margin-bottom: 20px;">משקיעים וקרנות השקעה</h4>
-                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                <div class="audience-card reveal stagger-4">
+                    <h4 class="audience-title">משקיעים וקרנות השקעה</h4>
+                    <p class="audience-description">
                         שיפור ביצועי פורטפוליו, ליווי השקעות חכמות ומניעת כשלים עסקיים. 
                         גישור בין יזמים למשקיעים עם הבנה עמיקה של שני הצדדים.
                     </p>
                 </div>
                 
-                <div class="audience-card reveal stagger-5" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #667eea; transition: all 0.4s ease;">
-                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #667eea; margin-bottom: 20px;">מותגים בינלאומיים</h4>
-                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                <div class="audience-card reveal stagger-5">
+                    <h4 class="audience-title">מותגים בינלאומיים</h4>
+                    <p class="audience-description">
                         כניסה חלקה לשוק הישראלי עם התאמה תרבותית ושיווקית מלאה. 
                         ניסיון מוכח בהשקת מותגי יוקרה בינלאומיים בישראל.
                     </p>
                 </div>
                 
-                <div class="audience-card reveal stagger-6" style="background: linear-gradient(145deg, #f8f9ff 0%, #e8eaf6 100%); padding: 50px 40px; border-radius: 25px; box-shadow: 20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff; border-right: 5px solid #764ba2; transition: all 0.4s ease;">
-                    <h4 style="font-size: 1.4rem; font-weight: 700; color: #764ba2; margin-bottom: 20px;">עורכי דין ונאמנים</h4>
-                    <p style="font-size: 1.1rem; line-height: 1.7; color: #546e7a; font-weight: 400;">
+                <div class="audience-card reveal stagger-6">
+                    <h4 class="audience-title">עורכי דין ונאמנים</h4>
+                    <p class="audience-description">
                         ליווי עסקי מקצועי בהליכי חדלות פירעון וכינוס נכסים. 
                         שילוב ייחודי של הבנה משפטית ועסקית להציל חברות לפני פירוק.
                     </p>
@@ -885,36 +1260,36 @@
     </section>
 
     <!-- Brands Section -->
-    <section style="padding: 120px 0; background: linear-gradient(135deg, #f8f9ff 0%, #e8eaf6 100%); text-align: center;">
+    <section class="brands-section">
         <div class="container">
-            <h3 style="font-size: 2.8rem; color: #667eea; margin-bottom: 80px; font-weight: 800;">מותגים בינלאומיים שליוויתי בישראל</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; align-items: center;">
-                <div style="padding: 50px 40px; background: white; border-radius: 20px; box-shadow: 15px 15px 40px #d1d5e0, -15px -15px 40px #ffffff; transition: all 0.4s ease; border-top: 4px solid #667eea; display: flex; align-items: center; justify-content: center; min-height: 140px;" class="reveal stagger-1 brand-card">
-                    <img src="images/logos/rayban-logo.png" alt="Ray-Ban Logo" style="max-width: 180px; max-height: 80px; object-fit: contain; filter: grayscale(100%) opacity(0.8); transition: all 0.3s ease;">
+            <h3 class="brands-title">מותגים בינלאומיים שליוויתי בישראל</h3>
+            <div class="brands-grid">
+                <div class="brand-card reveal stagger-1">
+                    <img src="images/logos/rayban-logo.png" alt="Ray-Ban Logo">
                 </div>
-                <div style="padding: 50px 40px; background: white; border-radius: 20px; box-shadow: 15px 15px 40px #d1d5e0, -15px -15px 40px #ffffff; transition: all 0.4s ease; border-top: 4px solid #764ba2; display: flex; align-items: center; justify-content: center; min-height: 140px;" class="reveal stagger-2 brand-card">
-                    <img src="images/logos/prada-logo.png" alt="Prada Logo" style="max-width: 180px; max-height: 80px; object-fit: contain; filter: grayscale(100%) opacity(0.8); transition: all 0.3s ease;">
+                <div class="brand-card reveal stagger-2">
+                    <img src="images/logos/prada-logo.png" alt="Prada Logo">
                 </div>
-                <div style="padding: 50px 40px; background: white; border-radius: 20px; box-shadow: 15px 15px 40px #d1d5e0, -15px -15px 40px #ffffff; transition: all 0.4s ease; border-top: 4px solid #667eea; display: flex; align-items: center; justify-content: center; min-height: 140px;" class="reveal stagger-3 brand-card">
-                    <img src="images/logos/nespresso-logo.png" alt="Nespresso Logo" style="max-width: 180px; max-height: 80px; object-fit: contain; filter: grayscale(100%) opacity(0.8); transition: all 0.3s ease;">
+                <div class="brand-card reveal stagger-3">
+                    <img src="images/logos/nespresso-logo.png" alt="Nespresso Logo">
                 </div>
-                <div style="padding: 50px 40px; background: white; border-radius: 20px; box-shadow: 15px 15px 40px #d1d5e0, -15px -15px 40px #ffffff; transition: all 0.4s ease; border-top: 4px solid #764ba2; display: flex; align-items: center; justify-content: center; min-height: 140px;" class="reveal stagger-4 brand-card">
-                    <img src="images/logos/chanel-logo.png" alt="Chanel Logo" style="max-width: 180px; max-height: 80px; object-fit: contain; filter: grayscale(100%) opacity(0.8); transition: all 0.3s ease;">
+                <div class="brand-card reveal stagger-4">
+                    <img src="images/logos/chanel-logo.png" alt="Chanel Logo">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Testimonial Section -->
-    <section style="padding: 150px 0; background: linear-gradient(135deg, #0f0f23 0%, #1a237e 100%); color: white; text-align: center; position: relative;">
+    <section class="testimonial-section">
         <div class="container">
-            <div style="max-width: 1000px; margin: 0 auto; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 80px 60px; border-radius: 30px; box-shadow: 0 40px 80px rgba(0,0,0,0.3);" class="reveal">
-                <p style="font-size: 1.6rem; line-height: 1.8; margin-bottom: 40px; font-style: italic; font-weight: 400; color: #e8eaf6;">
+            <div class="testimonial-card reveal">
+                <p class="testimonial-text">
                     "נועם הוביל אותנו דרך תהליך טרנספורמציה מורכב שהפך את החברה שלנו ממצב של קושי כלכלי 
                     לצמיחה רווחית. הניסיון שלו בשוק הבינלאומי וההבנה העמוקה של האתגרים העסקיים 
                     היו קריטיים להצלחתנו."
                 </p>
-                <div style="font-size: 1.2rem; font-weight: 700; color: #c5cae9;">מנכ"ל חברת טכנולוגיה מובילה</div>
+                <div class="testimonial-author">מנכ"ל חברת טכנולוגיה מובילה</div>
             </div>
         </div>
     </section>
@@ -960,9 +1335,9 @@
                 </div>
                 <div class="footer-section">
                     <h4>יצירת קשר</h4>
-                    <p>טלפון: 050-1234567</p>
-                    <p>מייל: noam@sivanconsulting.co.il</p>
-                    <p>LinkedIn: /in/noam-sivan</p>
+                    <p class="footer-phone">טלפון: 050-1234567</p>
+                    <p class="footer-email">מייל: noam@sivanconsulting.co.il</p>
+                    <p class="footer-linkedin">LinkedIn: /in/noam-sivan</p>
                 </div>
                 <div class="footer-section">
                     <h4>שירותים עיקריים</h4>
@@ -974,16 +1349,16 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 נועם סיון. כל הזכויות שמורות. | Privacy Policy | Terms of Service</p>
+                <p>&copy; 2025 נועם סיון. כל הזכויות שמורות.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Enhanced Scroll Animations
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -997,42 +1372,6 @@
         // Observe all reveal elements
         document.querySelectorAll('.reveal').forEach(el => {
             observer.observe(el);
-        });
-
-        // Premium Hover Effects
-        document.querySelectorAll('.audience-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-15px) translateX(-10px)';
-                card.style.boxShadow = '25px 25px 80px #d1d5e0, -25px -25px 80px #ffffff';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) translateX(0)';
-                card.style.boxShadow = '20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff';
-            });
-        });
-
-        // Brand Logo Hover Effects
-        document.querySelectorAll('.brand-card').forEach(card => {
-            const img = card.querySelector('img');
-            
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px)';
-                card.style.boxShadow = '20px 20px 60px #d1d5e0, -20px -20px 60px #ffffff';
-                if (img) {
-                    img.style.filter = 'grayscale(0%) opacity(1)';
-                    img.style.transform = 'scale(1.05)';
-                }
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-                card.style.boxShadow = '15px 15px 40px #d1d5e0, -15px -15px 40px #ffffff';
-                if (img) {
-                    img.style.filter = 'grayscale(100%) opacity(0.8)';
-                    img.style.transform = 'scale(1)';
-                }
-            });
         });
 
         // Smooth scrolling
@@ -1049,14 +1388,14 @@
             });
         });
 
-        // Advanced Form Handling
+        // Form handling
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const button = this.querySelector('.submit-btn');
             const originalText = button.textContent;
             
-            // Validation
+            // Simple validation
             const inputs = this.querySelectorAll('input, textarea');
             let isValid = true;
             
@@ -1095,7 +1434,7 @@
             }, 1500);
         });
 
-        // Advanced Stats Animation
+        // Stats animation
         const statsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1114,7 +1453,7 @@
 
         function animateNumber(element) {
             const finalNumber = parseInt(element.textContent);
-            const duration = 2500;
+            const duration = 2000;
             const increment = finalNumber / (duration / 50);
             let current = 0;
             
@@ -1128,63 +1467,6 @@
                 }
             }, 50);
         }
-
-        // Dynamic background effects
-        function createFloatingIcons() {
-            const icons = ['💼', '📈', '🎯', '⚡', '🌍', '💡', '🚀', '✨'];
-            
-            setInterval(() => {
-                const icon = document.createElement('div');
-                icon.textContent = icons[Math.floor(Math.random() * icons.length)];
-                icon.style.cssText = `
-                    position: fixed;
-                    font-size: 1.5rem;
-                    opacity: 0.1;
-                    pointer-events: none;
-                    z-index: 1;
-                    left: ${Math.random() * 100}vw;
-                    top: 100vh;
-                    animation: floatUp 8s linear forwards;
-                `;
-                document.body.appendChild(icon);
-                
-                setTimeout(() => {
-                    if (icon.parentNode) {
-                        icon.parentNode.removeChild(icon);
-                    }
-                }, 8000);
-            }, 3000);
-        }
-
-        // Add floating animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes floatUp {
-                to {
-                    transform: translateY(-100vh) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Start floating icons
-        createFloatingIcons();
-
-        // Page load animation
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '1';
-            document.body.style.transform = 'translateY(0)';
-        });
-
-        // Initial page style
-        document.body.style.cssText += `
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease;
-        `;
-
-        
     </script>
 </body>
 </html>
